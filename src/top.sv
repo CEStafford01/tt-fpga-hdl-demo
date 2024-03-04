@@ -256,11 +256,12 @@ logic FpgaPins_Fpga_CALC_sel_a1;
                   //_@0
                      assign FpgaPins_Fpga_CALC_reset_a0 = reset;
                      assign FpgaPins_Fpga_CALC_equals_in_a0 = ui_in[7];
+                     assign FpgaPins_Fpga_CALC_sel_a1 = clk;        
             
                   //_@1
             
                      assign FpgaPins_Fpga_CALC_digit_a1[7:0] = ui_in;
-                     assign FpgaPins_Fpga_CALC_sel_a1 = clk;
+
                      assign uio_oe = 8'b1;
                      assign uio_out = (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00111001:
