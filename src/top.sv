@@ -255,35 +255,8 @@ logic FpgaPins_Fpga_CALC_sel_a1;
                                  ? 8'b00111001:
                                  (FpgaPins_Fpga_CALC_digit_a1[0] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10001111:
-                                 (FpgaPins_Fpga_CALC_digit_a1[1] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10000011:
-                                 (FpgaPins_Fpga_CALC_digit_a1[1] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00011000:
-                                 (FpgaPins_Fpga_CALC_digit_a1[2] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00010100:
-                                 (FpgaPins_Fpga_CALC_digit_a1[2] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10100010:
-                                 (FpgaPins_Fpga_CALC_digit_a1[3] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00011100:
-                                 (FpgaPins_Fpga_CALC_digit_a1[3] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10100011:
-                                 (FpgaPins_Fpga_CALC_digit_a1[4] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00111001:
-                                 (FpgaPins_Fpga_CALC_digit_a1[4] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10001111:
-                                 (FpgaPins_Fpga_CALC_digit_a1[5] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00100001:
-                                 (FpgaPins_Fpga_CALC_digit_a1[5] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10001100:
-                                 (FpgaPins_Fpga_CALC_digit_a1[6] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b01000001:
-                                 (FpgaPins_Fpga_CALC_digit_a1[6] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b11001000:
-                                 (FpgaPins_Fpga_CALC_digit_a1[7] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b01000011:
-                                 (FpgaPins_Fpga_CALC_digit_a1[7] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b11011000:
-                                 8'b00000000;
+                                 
+                                 8'b01111111;
             
             
                // Note that pipesignals assigned here can be found under /fpga_pins/fpga.
