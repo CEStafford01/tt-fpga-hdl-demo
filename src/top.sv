@@ -5,7 +5,7 @@
    // Included URL: "https://raw.githubusercontent.com/efabless/chipcraft---mest-course/main/tlv_lib/calculator_shell_lib.tlv"
    // Include Tiny Tapeout Lab.
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlv_lib/tiny_tapeout_lib.tlv"// Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlv_lib/fpga_includes.tlv"
-//_\source top.tlv 105
+//_\source top.tlv 103
 
 //_\SV
 
@@ -144,12 +144,6 @@ logic [6:0] L0_sseg_segment_n_a0;
 // For /fpga_pins/fpga|calc$digit.
 logic [7:0] FpgaPins_Fpga_CALC_digit_a1;
 
-// For /fpga_pins/fpga|calc$equals_in.
-logic FpgaPins_Fpga_CALC_equals_in_a0;
-
-// For /fpga_pins/fpga|calc$reset.
-logic FpgaPins_Fpga_CALC_reset_a0;
-
 // For /fpga_pins/fpga|calc$sel.
 logic FpgaPins_Fpga_CALC_sel_a1;
 
@@ -202,10 +196,6 @@ logic FpgaPins_Fpga_CALC_sel_a1;
             if (1) begin : P_calc
                (* keep *) logic [7:0] \///@1$digit ;
                assign \///@1$digit = FpgaPins_Fpga_CALC_digit_a1;
-               (* keep *) logic  \///@0$equals_in ;
-               assign \///@0$equals_in = FpgaPins_Fpga_CALC_equals_in_a0;
-               (* keep *) logic  \///@0$reset ;
-               assign \///@0$reset = FpgaPins_Fpga_CALC_reset_a0;
                (* keep *) logic  \///@1$sel ;
                assign \///@1$sel = FpgaPins_Fpga_CALC_sel_a1;
             end
@@ -227,7 +217,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
 //_\TLV
    /* verilator lint_off UNOPTFLAT */
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 160 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 158 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = ~ uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = ~ uo_out[7];
@@ -235,7 +225,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
    //_\end_source
 
    // Instantiate the Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 163 as: m5+board(/top, /fpga, 7, $, , calc)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 161 as: m5+board(/top, /fpga, 7, $, , calc)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 355   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 309 as: m4+thanks(m5__l(309)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
@@ -254,16 +244,14 @@ logic FpgaPins_Fpga_CALC_sel_a1;
             
                //_|calc
                   //_@0
-                     assign FpgaPins_Fpga_CALC_reset_a0 = reset;
-                     assign FpgaPins_Fpga_CALC_equals_in_a0 = ui_in[7];
-                     assign FpgaPins_Fpga_CALC_sel_a1 = clk;        
+            
+            
             
                   //_@1
             
                      assign FpgaPins_Fpga_CALC_digit_a1[7:0] = ui_in;
-
-                     assign uio_oe = 8'b1;
-                     assign uio_out = (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
+                     assign FpgaPins_Fpga_CALC_sel_a1 = clk;
+                     assign uo_out = (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00111001:
                                  (FpgaPins_Fpga_CALC_digit_a1[0] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10001111:
@@ -299,7 +287,6 @@ logic FpgaPins_Fpga_CALC_sel_a1;
             
             
                // Note that pipesignals assigned here can be found under /fpga_pins/fpga.
-            
             
             
                //m5+cal_viz(@2, /fpga)
@@ -344,7 +331,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
       
    //_\end_source
    // Label the switch inputs [0..7] (1..8 on the physical switch panel) (top-to-bottom).
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 165 as: m5+tt_input_labels_viz(⌈"Value[0]", "Value[1]", "Value[2]", "Value[3]", "Op[0]", "Op[1]", "Op[2]", "="⌉)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 163 as: m5+tt_input_labels_viz(⌈"Value[0]", "Value[1]", "Value[2]", "Value[3]", "Op[0]", "Op[1]", "Op[2]", "="⌉)
       for (input_label = 0; input_label <= 7; input_label++) begin : L1_InputLabel //_/input_label
          
       end
