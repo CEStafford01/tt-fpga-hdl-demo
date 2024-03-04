@@ -283,7 +283,9 @@ logic FpgaPins_Fpga_CALC_sel_a1;
                                  ? 8'b01011000:
                                  (FpgaPins_Fpga_CALC_digit_a1[7] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b11000011:
-                                 8'b01111111;
+                                 (FpgaPins_Fpga_CALC_sel_a1)
+                                 8'b10111001:
+                                 8'b00001111;
             
             
                // Note that pipesignals assigned here can be found under /fpga_pins/fpga.
