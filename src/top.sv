@@ -263,6 +263,26 @@ logic FpgaPins_Fpga_CALC_sel_a1;
                                  ? 8'b00100010:
                                  (FpgaPins_Fpga_CALC_digit_a1[2] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10010100:
+                                 (FpgaPins_Fpga_CALC_digit_a1[3] & FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b00100011:
+                                 (FpgaPins_Fpga_CALC_digit_a1[3] & !FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b10011100:
+                                 (FpgaPins_Fpga_CALC_digit_a1[4] & FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b00001111:
+                                 (FpgaPins_Fpga_CALC_digit_a1[4] & !FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b10111001:
+                                 (FpgaPins_Fpga_CALC_digit_a1[5] & FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b00001100:
+                                 (FpgaPins_Fpga_CALC_digit_a1[5] & !FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b10100001:
+                                 (FpgaPins_Fpga_CALC_digit_a1[6] & FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b01001000:
+                                 (FpgaPins_Fpga_CALC_digit_a1[6] & !FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b11000001:
+                                 (FpgaPins_Fpga_CALC_digit_a1[7] & FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b01011000:
+                                 (FpgaPins_Fpga_CALC_digit_a1[7] & !FpgaPins_Fpga_CALC_sel_a1)
+                                 ? 8'b11000011:
                                  8'b01111111;
             
             
