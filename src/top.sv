@@ -256,9 +256,9 @@ logic FpgaPins_Fpga_CALC_sel_a1;
                                  (FpgaPins_Fpga_CALC_digit_a1[0] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10111001:
                                  (FpgaPins_Fpga_CALC_digit_a1[1] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10000011:
+                                 ? 8'b10011000:
                                  (FpgaPins_Fpga_CALC_digit_a1[1] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00011000:
+                                 ? 8'b00000011:
                                  (FpgaPins_Fpga_CALC_digit_a1[2] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00100010:
                                  (FpgaPins_Fpga_CALC_digit_a1[2] & !FpgaPins_Fpga_CALC_sel_a1)
