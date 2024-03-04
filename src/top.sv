@@ -252,9 +252,9 @@ logic FpgaPins_Fpga_CALC_sel_a1;
                      assign FpgaPins_Fpga_CALC_digit_a1[7:0] = ui_in;
                      assign FpgaPins_Fpga_CALC_sel_a1 = clk;
                      assign uo_out = (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00111001:
+                                 ? 8'b00001111:
                                  (FpgaPins_Fpga_CALC_digit_a1[0] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10001111:
+                                 ? 8'b10111001:
                                  
                                  8'b01111111;
             
