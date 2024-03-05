@@ -251,38 +251,48 @@ logic FpgaPins_Fpga_CALC_sel_a1;
             
                      assign FpgaPins_Fpga_CALC_digit_a1[7:0] = ui_in;
                      assign FpgaPins_Fpga_CALC_sel_a1 = clk;
-                     assign uo_out = (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
+                     assign uo_out = 
+                                 //cycle phase all red 
+                                 (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00001111:
                                  (FpgaPins_Fpga_CALC_digit_a1[0] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10111001:
+                                 //Cycle phase Left Turn Road B Green Light
                                  (FpgaPins_Fpga_CALC_digit_a1[1] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10011000:
                                  (FpgaPins_Fpga_CALC_digit_a1[1] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00000011:
+                                 //Cycle phase Road B Green light & LT yellow
                                  (FpgaPins_Fpga_CALC_digit_a1[2] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00100010:
                                  (FpgaPins_Fpga_CALC_digit_a1[2] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10010100:
+                                 //Cycle phase Road B Yellow Light 
                                  (FpgaPins_Fpga_CALC_digit_a1[3] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00100011:
                                  (FpgaPins_Fpga_CALC_digit_a1[3] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10011100:
+                                 //Cycle phase all red
                                  (FpgaPins_Fpga_CALC_digit_a1[4] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00001111:
                                  (FpgaPins_Fpga_CALC_digit_a1[4] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10111001:
+                                 //Cycle phase Left Turn Road A Green Light
                                  (FpgaPins_Fpga_CALC_digit_a1[5] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b00001100:
                                  (FpgaPins_Fpga_CALC_digit_a1[5] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10100001:
+                                 //Cycle phase Road A Green light & LT yellow
                                  (FpgaPins_Fpga_CALC_digit_a1[6] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b01001000:
                                  (FpgaPins_Fpga_CALC_digit_a1[6] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b11000001:
+                                 //Cycle phase Road A Yellow Light 
                                  (FpgaPins_Fpga_CALC_digit_a1[7] & FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b01011000:
                                  (FpgaPins_Fpga_CALC_digit_a1[7] & !FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b11000011:
+                                 //Default all red
                                  (FpgaPins_Fpga_CALC_sel_a1)
                                  ? 8'b10111001:
                                  8'b00001111;
