@@ -4,7 +4,7 @@
 //_\SV
    // Include Tiny Tapeout Lab.
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlv_lib/tiny_tapeout_lib.tlv"// Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlv_lib/fpga_includes.tlv"
-//_\source top.tlv 212
+//_\source top.tlv 213
 
 //_\SV
 
@@ -142,7 +142,7 @@ logic FpgaPins_Fpga_TRAFFIC_reset_a0,
       FpgaPins_Fpga_TRAFFIC_reset_a2;
 
 // For /fpga_pins/fpga|traffic$second_counter.
-logic [24:0] FpgaPins_Fpga_TRAFFIC_second_counter_a0,
+logic [31:0] FpgaPins_Fpga_TRAFFIC_second_counter_a0,
              FpgaPins_Fpga_TRAFFIC_second_counter_a1;
 
 // For /fpga_pins/fpga|traffic$sel.
@@ -221,7 +221,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
             always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_reset_a2 <= FpgaPins_Fpga_TRAFFIC_reset_a1;
 
             // Staging of $second_counter.
-            always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_second_counter_a1[24:0] <= FpgaPins_Fpga_TRAFFIC_second_counter_a0[24:0];
+            always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_second_counter_a1[31:0] <= FpgaPins_Fpga_TRAFFIC_second_counter_a0[31:0];
 
             // Staging of $sel.
             always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_sel_a1 <= FpgaPins_Fpga_TRAFFIC_sel_a0;
@@ -318,7 +318,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                assign \///@0$cycle = FpgaPins_Fpga_TRAFFIC_cycle_a0;
                (* keep *) logic  \///@0$reset ;
                assign \///@0$reset = FpgaPins_Fpga_TRAFFIC_reset_a0;
-               (* keep *) logic [24:0] \///@0$second_counter ;
+               (* keep *) logic [31:0] \///@0$second_counter ;
                assign \///@0$second_counter = FpgaPins_Fpga_TRAFFIC_second_counter_a0;
                (* keep *) logic  \///@0$sel ;
                assign \///@0$sel = FpgaPins_Fpga_TRAFFIC_sel_a0;
@@ -365,7 +365,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
 //_\TLV
    /* verilator lint_off UNOPTFLAT */
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 281 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 282 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = ~ uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = ~ uo_out[7];
@@ -373,7 +373,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
    //_\end_source
 
    // Instantiate the Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 284 as: m5+board(/top, /fpga, 7, $, , traffic)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 285 as: m5+board(/top, /fpga, 7, $, , traffic)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 355   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 309 as: m4+thanks(m5__l(309)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
@@ -398,11 +398,11 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                   //Clock to seconds counter
                   //_@0
                      assign FpgaPins_Fpga_TRAFFIC_reset_a0 = reset;
-                  assign FpgaPins_Fpga_TRAFFIC_second_counter_a0[31:0] = FpgaPins_Fpga_TRAFFIC_reset_a0 ?
+                     assign FpgaPins_Fpga_TRAFFIC_second_counter_a0[31:0] = FpgaPins_Fpga_TRAFFIC_reset_a0 ?
                                           32'b0:
                                           FpgaPins_Fpga_TRAFFIC_second_counter_a1 +1;
-                 // assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (FpgaPins_Fpga_TRAFFIC_second_counter_a0[27]);
-                  assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (ui_in[3:0] == 4'b1111);
+                     //$cycle = ($second_counter[26]);
+                     assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (ui_in[0]);
                      assign FpgaPins_Fpga_TRAFFIC_sel_a0 = FpgaPins_Fpga_TRAFFIC_second_counter_a0[4];
                   //_@1
                      assign FpgaPins_Fpga_TRAFFIC_ba_a1 = FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
@@ -481,9 +481,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                                         !FpgaPins_Fpga_TRAFFIC_update_a1
                                         ? FpgaPins_Fpga_TRAFFIC_b_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_Light_light_a1[1:0];
-                  assign FpgaPins_Fpga_TRAFFIC_a_lt_light_a1[1:0] = 2'b11;
-                  assign FpgaPins_Fpga_TRAFFIC_a_light_a1[1:0] = 2'b11;
-                  /*
+            
                      //_?$ab
                         //_@1
                            assign FpgaPins_Fpga_TRAFFIC_a_lt_light_a1[1:0] = FpgaPins_Fpga_TRAFFIC_reset_a1
@@ -496,7 +494,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                                         !FpgaPins_Fpga_TRAFFIC_update_a1
                                         ? FpgaPins_Fpga_TRAFFIC_a_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_Light_light_a1[1:0];
-            */
+            
                   //_@2//output with 2 digit display
                      //$display_1
                      //$display_2
@@ -592,7 +590,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
       
    //_\end_source
    // Label the switch inputs [0..7] (1..8 on the physical switch panel) (top-to-bottom).
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 286 as: m5+tt_input_labels_viz(⌈"UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED"⌉)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 287 as: m5+tt_input_labels_viz(⌈"UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED"⌉)
       for (input_label = 0; input_label <= 7; input_label++) begin : L1_InputLabel //_/input_label
          
       end
