@@ -494,24 +494,24 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                      //ABAlBl
                      assign uo_out = //RRRR
                                  (FpgaPins_Fpga_TRAFFIC_all_red_a2 & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b10111001:
+                                 ? 8'b00111001:
                                  (FpgaPins_Fpga_TRAFFIC_all_red_a2 & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ?  8'b00001111:
+                                 ?  8'b10001111:
                                  //RRRG
                                  (FpgaPins_Fpga_TRAFFIC_ba_a2 & (FpgaPins_Fpga_TRAFFIC_b_lt_light_a2 == 2'b00) & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                  ? 8'b00011000:
+                                  ? 8'b10011000:
                                  (FpgaPins_Fpga_TRAFFIC_ba_a2 & (FpgaPins_Fpga_TRAFFIC_b_lt_light_a2 == 2'b00) & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b10000011:
+                                 ? 8'b00000011:
                                  //RGRY
                                  (FpgaPins_Fpga_TRAFFIC_ba_a2 & (FpgaPins_Fpga_TRAFFIC_b_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_b_light_a2 == 2'b00) & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b00010100:
+                                 ? 8'b10010100:
                                  (FpgaPins_Fpga_TRAFFIC_ba_a2 & (FpgaPins_Fpga_TRAFFIC_b_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_b_light_a2 == 2'b00) & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ?  8'b10100010:
+                                 ?  8'b00100010:
                                  //RYRY
                                  (FpgaPins_Fpga_TRAFFIC_ba_a2 & (FpgaPins_Fpga_TRAFFIC_b_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_b_light_a2 == 2'b01) & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b00011100:
+                                 ? 8'b10011100:
                                  (FpgaPins_Fpga_TRAFFIC_ba_a2 & (FpgaPins_Fpga_TRAFFIC_b_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_b_light_a2 == 2'b01) & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b10100011:
+                                 ? 8'b00100011:
                                  //RRRR
                                  //($digit[4] & $sel)
                                  //? 8'b00111001:
@@ -519,19 +519,19 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                                  //? 8'b10001111:
                                  //RRGR
                                  (FpgaPins_Fpga_TRAFFIC_ab_a2 & (FpgaPins_Fpga_TRAFFIC_a_lt_light_a2 == 2'b00) & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b00100001:
+                                 ? 8'b10100001:
                                  (FpgaPins_Fpga_TRAFFIC_ab_a2 & (FpgaPins_Fpga_TRAFFIC_a_lt_light_a2 == 2'b00) & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b10001100:
+                                 ? 8'b00001100:
                                  //GRYR
                                  (FpgaPins_Fpga_TRAFFIC_ab_a2 & (FpgaPins_Fpga_TRAFFIC_a_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_a_light_a2 == 2'b00) & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ?  8'b01000001:
+                                 ?  8'b11000001:
                                  (FpgaPins_Fpga_TRAFFIC_ab_a2 & (FpgaPins_Fpga_TRAFFIC_a_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_a_light_a2 == 2'b00) & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                  ? 8'b11001000:
+                                  ? 8'b01001000:
                                  //YRYR
                                  (FpgaPins_Fpga_TRAFFIC_ab_a2 & (FpgaPins_Fpga_TRAFFIC_a_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_a_light_a2 == 2'b01) & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b11011000:
+                                 ? 8'b01011000:
                                  (FpgaPins_Fpga_TRAFFIC_ab_a2 & (FpgaPins_Fpga_TRAFFIC_a_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_a_light_a2 == 2'b01) & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ?  8'b01000011:
+                                 ?  8'b11000011:
                                  FpgaPins_Fpga_TRAFFIC_sel_a2 //all red safe state
                                  ?8'b0:
                                  8'b10;
