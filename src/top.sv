@@ -403,7 +403,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                                           FpgaPins_Fpga_TRAFFIC_second_counter_a1 +1;
                      //$cycle = ($second_counter[26]);
                      assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (ui_in[0]);
-                     assign FpgaPins_Fpga_TRAFFIC_sel_a0 = FpgaPins_Fpga_TRAFFIC_second_counter_a0[4];
+                     assign FpgaPins_Fpga_TRAFFIC_sel_a0 = !FpgaPins_Fpga_TRAFFIC_second_counter_a0[4];
                   //_@1
                      assign FpgaPins_Fpga_TRAFFIC_ba_a1 = FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
                      assign FpgaPins_Fpga_TRAFFIC_ab_a1 = !FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
