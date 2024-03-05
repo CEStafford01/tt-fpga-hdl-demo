@@ -390,12 +390,12 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                   //Clock to seconds counter
                   //_@0
                      assign FpgaPins_Fpga_TRAFFIC_reset_a0 = reset;
-                     assign FpgaPins_Fpga_TRAFFIC_second_counter_a0[31:0] = FpgaPins_Fpga_TRAFFIC_reset_a0 ?
-                                          32'b0:
+                  assign FpgaPins_Fpga_TRAFFIC_second_counter_a0[127:0] = FpgaPins_Fpga_TRAFFIC_reset_a0 ?
+                                          128'b0:
                                           FpgaPins_Fpga_TRAFFIC_cycle_a1 ?
-                                          32'b0:
+                                          128'b0:
                                           FpgaPins_Fpga_TRAFFIC_second_counter_a1 +1;
-                     assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (FpgaPins_Fpga_TRAFFIC_second_counter_a0[31] & !FpgaPins_Fpga_TRAFFIC_second_counter_a1[31]);
+                  assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (FpgaPins_Fpga_TRAFFIC_second_counter_a0[127] & !FpgaPins_Fpga_TRAFFIC_second_counter_a1[127]);
                      assign FpgaPins_Fpga_TRAFFIC_sel_a0 = FpgaPins_Fpga_TRAFFIC_second_counter_a0[4];
             
                   //_?$cycle
