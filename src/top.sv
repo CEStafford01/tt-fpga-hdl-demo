@@ -133,8 +133,7 @@ logic FpgaPins_Fpga_TRAFFIC_ba_a1,
 
 // For /fpga_pins/fpga|traffic$cycle.
 logic FpgaPins_Fpga_TRAFFIC_cycle_a0,
-      FpgaPins_Fpga_TRAFFIC_cycle_a1,
-      FpgaPins_Fpga_TRAFFIC_cycle_a2;
+      FpgaPins_Fpga_TRAFFIC_cycle_a1;
 
 // For /fpga_pins/fpga|traffic$reset.
 logic FpgaPins_Fpga_TRAFFIC_reset_a0,
@@ -153,9 +152,6 @@ logic FpgaPins_Fpga_TRAFFIC_sel_a0,
 // For /fpga_pins/fpga|traffic$turn.
 logic [1:0] FpgaPins_Fpga_TRAFFIC_turn_a1,
             FpgaPins_Fpga_TRAFFIC_turn_a2;
-
-// For /fpga_pins/fpga|traffic$update.
-logic FpgaPins_Fpga_TRAFFIC_update_a1;
 
 // For /fpga_pins/fpga|traffic/light$light.
 logic [1:0] FpgaPins_Fpga_TRAFFIC_Light_light_a1,
@@ -214,7 +210,6 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
 
             // Staging of $cycle.
             always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_cycle_a1 <= FpgaPins_Fpga_TRAFFIC_cycle_a0;
-            always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_cycle_a2 <= FpgaPins_Fpga_TRAFFIC_cycle_a1;
 
             // Staging of $reset.
             always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_reset_a1 <= FpgaPins_Fpga_TRAFFIC_reset_a0;
@@ -298,20 +293,20 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
             // Scope: |traffic
             //
             if (1) begin : P_traffic
-               (* keep *) logic [1:0] \///?$update?$ab@1$a_light ;
-               assign \///?$update?$ab@1$a_light = FpgaPins_Fpga_TRAFFIC_a_light_a1;
-               (* keep *) logic [1:0] \///?$update?$ab@1$a_lt_light ;
-               assign \///?$update?$ab@1$a_lt_light = FpgaPins_Fpga_TRAFFIC_a_lt_light_a1;
+               (* keep *) logic [1:0] \///?$cycle?$ab@1$a_light ;
+               assign \///?$cycle?$ab@1$a_light = FpgaPins_Fpga_TRAFFIC_a_light_a1;
+               (* keep *) logic [1:0] \///?$cycle?$ab@1$a_lt_light ;
+               assign \///?$cycle?$ab@1$a_lt_light = FpgaPins_Fpga_TRAFFIC_a_lt_light_a1;
                (* keep *) logic  \///@1$ab ;
                assign \///@1$ab = FpgaPins_Fpga_TRAFFIC_ab_a1;
-               (* keep *) logic  \///?$update@1$all_red ;
-               assign \///?$update@1$all_red = FpgaPins_Fpga_TRAFFIC_all_red_a1;
-               (* keep *) logic [1:0] \///?$update?$ba@1$b_light ;
-               assign \///?$update?$ba@1$b_light = FpgaPins_Fpga_TRAFFIC_b_light_a1;
-               (* keep *) logic [1:0] \///?$update?$ba@1$b_lt_light ;
-               assign \///?$update?$ba@1$b_lt_light = FpgaPins_Fpga_TRAFFIC_b_lt_light_a1;
-               (* keep *) logic  \///?$update@1$b_or_a ;
-               assign \///?$update@1$b_or_a = FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
+               (* keep *) logic  \///?$cycle@1$all_red ;
+               assign \///?$cycle@1$all_red = FpgaPins_Fpga_TRAFFIC_all_red_a1;
+               (* keep *) logic [1:0] \///?$cycle?$ba@1$b_light ;
+               assign \///?$cycle?$ba@1$b_light = FpgaPins_Fpga_TRAFFIC_b_light_a1;
+               (* keep *) logic [1:0] \///?$cycle?$ba@1$b_lt_light ;
+               assign \///?$cycle?$ba@1$b_lt_light = FpgaPins_Fpga_TRAFFIC_b_lt_light_a1;
+               (* keep *) logic  \///?$cycle@1$b_or_a ;
+               assign \///?$cycle@1$b_or_a = FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
                (* keep *) logic  \///@1$ba ;
                assign \///@1$ba = FpgaPins_Fpga_TRAFFIC_ba_a1;
                (* keep *) logic  \///@0$cycle ;
@@ -322,29 +317,27 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                assign \///@0$second_counter = FpgaPins_Fpga_TRAFFIC_second_counter_a0;
                (* keep *) logic  \///@0$sel ;
                assign \///@0$sel = FpgaPins_Fpga_TRAFFIC_sel_a0;
-               (* keep *) logic [1:0] \///?$update@1$turn ;
-               assign \///?$update@1$turn = FpgaPins_Fpga_TRAFFIC_turn_a1;
-               (* keep *) logic  \///@1$update ;
-               assign \///@1$update = FpgaPins_Fpga_TRAFFIC_update_a1;
+               (* keep *) logic [1:0] \///?$cycle@1$turn ;
+               assign \///?$cycle@1$turn = FpgaPins_Fpga_TRAFFIC_turn_a1;
 
                //
                // Scope: /light
                //
                if (1) begin : \/light 
-                  (* keep *) logic [1:0] \///?$update/@1$light ;
-                  assign \///?$update/@1$light = FpgaPins_Fpga_TRAFFIC_Light_light_a1;
-                  (* keep *) logic  \///?$update/@1$rs ;
-                  assign \///?$update/@1$rs = FpgaPins_Fpga_TRAFFIC_Light_rs_a1;
+                  (* keep *) logic [1:0] \///?$cycle/@1$light ;
+                  assign \///?$cycle/@1$light = FpgaPins_Fpga_TRAFFIC_Light_light_a1;
+                  (* keep *) logic  \///?$cycle/@1$rs ;
+                  assign \///?$cycle/@1$rs = FpgaPins_Fpga_TRAFFIC_Light_rs_a1;
                end
 
                //
                // Scope: /light_lt
                //
                if (1) begin : \/light_lt 
-                  (* keep *) logic [1:0] \///?$update/@1$light ;
-                  assign \///?$update/@1$light = FpgaPins_Fpga_TRAFFIC_LightLt_light_a1;
-                  (* keep *) logic  \///?$update/@1$rs ;
-                  assign \///?$update/@1$rs = FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
+                  (* keep *) logic [1:0] \///?$cycle/@1$light ;
+                  assign \///?$cycle/@1$light = FpgaPins_Fpga_TRAFFIC_LightLt_light_a1;
+                  (* keep *) logic  \///?$cycle/@1$rs ;
+                  assign \///?$cycle/@1$rs = FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                end
             end
          end
@@ -401,19 +394,19 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                      assign FpgaPins_Fpga_TRAFFIC_second_counter_a0[31:0] = FpgaPins_Fpga_TRAFFIC_reset_a0 ?
                                           32'b0:
                                           FpgaPins_Fpga_TRAFFIC_second_counter_a1 +1;
-                     //$cycle = ($second_counter[26]);
-                     assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (ui_in[0]);
+                     assign FpgaPins_Fpga_TRAFFIC_cycle_a0 = (FpgaPins_Fpga_TRAFFIC_second_counter_a0[24] & !FpgaPins_Fpga_TRAFFIC_second_counter_a1[24]);
+                     //$cycle = (*ui_in[0]);
                      assign FpgaPins_Fpga_TRAFFIC_sel_a0 = !FpgaPins_Fpga_TRAFFIC_second_counter_a0[4];
                   //_@1
                      assign FpgaPins_Fpga_TRAFFIC_ba_a1 = FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
                      assign FpgaPins_Fpga_TRAFFIC_ab_a1 = !FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
-                     assign FpgaPins_Fpga_TRAFFIC_update_a1 = FpgaPins_Fpga_TRAFFIC_cycle_a1 & !FpgaPins_Fpga_TRAFFIC_cycle_a2;
-                  //_?$update
+                     //$update = $cycle & !>>1$cycle;
+                  //_?$cycle
                      //_@1
                         //turn logic
                         assign FpgaPins_Fpga_TRAFFIC_b_or_a_a1 = FpgaPins_Fpga_TRAFFIC_reset_a1
                                 ? 1'b1:
-                                !FpgaPins_Fpga_TRAFFIC_update_a1
+                                !FpgaPins_Fpga_TRAFFIC_cycle_a1
                                 ? FpgaPins_Fpga_TRAFFIC_b_or_a_a2:
                                 (FpgaPins_Fpga_TRAFFIC_all_red_a1 & !FpgaPins_Fpga_TRAFFIC_all_red_a2)
                                 ? !FpgaPins_Fpga_TRAFFIC_b_or_a_a2:
@@ -473,12 +466,12 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                         //_@1
                            assign FpgaPins_Fpga_TRAFFIC_b_lt_light_a1[1:0] = FpgaPins_Fpga_TRAFFIC_reset_a1
                                         ? 2'b11:
-                                        !FpgaPins_Fpga_TRAFFIC_update_a1
+                                        !FpgaPins_Fpga_TRAFFIC_cycle_a1
                                         ? FpgaPins_Fpga_TRAFFIC_b_lt_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_LightLt_light_a1[1:0];
                            assign FpgaPins_Fpga_TRAFFIC_b_light_a1[1:0] = FpgaPins_Fpga_TRAFFIC_reset_a1
                                         ? 2'b11:
-                                        !FpgaPins_Fpga_TRAFFIC_update_a1
+                                        !FpgaPins_Fpga_TRAFFIC_cycle_a1
                                         ? FpgaPins_Fpga_TRAFFIC_b_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_Light_light_a1[1:0];
             
@@ -486,12 +479,12 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                         //_@1
                            assign FpgaPins_Fpga_TRAFFIC_a_lt_light_a1[1:0] = FpgaPins_Fpga_TRAFFIC_reset_a1
                                         ? 2'b11:
-                                        !FpgaPins_Fpga_TRAFFIC_update_a1
+                                        !FpgaPins_Fpga_TRAFFIC_cycle_a1
                                         ? FpgaPins_Fpga_TRAFFIC_a_lt_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_LightLt_light_a1[1:0];
                            assign FpgaPins_Fpga_TRAFFIC_a_light_a1[1:0] = FpgaPins_Fpga_TRAFFIC_reset_a1
                                         ? 2'b11:
-                                        !FpgaPins_Fpga_TRAFFIC_update_a1
+                                        !FpgaPins_Fpga_TRAFFIC_cycle_a1
                                         ? FpgaPins_Fpga_TRAFFIC_a_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_Light_light_a1[1:0];
             
@@ -540,8 +533,8 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                                  (FpgaPins_Fpga_TRAFFIC_ab_a2 & (FpgaPins_Fpga_TRAFFIC_a_lt_light_a2 == 2'b01) & (FpgaPins_Fpga_TRAFFIC_a_light_a2 == 2'b01) & !FpgaPins_Fpga_TRAFFIC_sel_a2)
                                  ?  8'b01000011:
                                  FpgaPins_Fpga_TRAFFIC_sel_a2 //all red safe state
-                                 ?8'b10111001:
-                                 8'b00001111;
+                                 ?8'b0:
+                                 8'b10;
             
             
                // Note that pipesignals assigned here can be found under /fpga_pins/fpga.
