@@ -480,7 +480,9 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                                         !FpgaPins_Fpga_TRAFFIC_update_a1
                                         ? FpgaPins_Fpga_TRAFFIC_b_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_Light_light_a1[1:0];
-            
+                  assign FpgaPins_Fpga_TRAFFIC_a_lt_light_a1[1:0] = 2'b11;
+                  assign FpgaPins_Fpga_TRAFFIC_a_light_a1[1:0] = 2'b11;
+                  /*
                      //_?$ab
                         //_@1
                            assign FpgaPins_Fpga_TRAFFIC_a_lt_light_a1[1:0] = FpgaPins_Fpga_TRAFFIC_reset_a1
@@ -493,7 +495,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                                         !FpgaPins_Fpga_TRAFFIC_update_a1
                                         ? FpgaPins_Fpga_TRAFFIC_a_light_a2:
                                         FpgaPins_Fpga_TRAFFIC_Light_light_a1[1:0];
-            
+            */
                   //_@2//output with 2 digit display
                      //$display_1
                      //$display_2
