@@ -142,7 +142,7 @@ logic [7:0] L0_sseg_digit_n_a0;
 logic [6:0] L0_sseg_segment_n_a0;
 
 // For /fpga_pins/fpga|calc$counter.
-logic [2:0] FpgaPins_Fpga_CALC_counter_a1,
+logic [4:0] FpgaPins_Fpga_CALC_counter_a1,
             FpgaPins_Fpga_CALC_counter_a2;
 
 // For /fpga_pins/fpga|calc$digit.
@@ -172,7 +172,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
          //
 
             // Staging of $counter.
-            always_ff @(posedge clk) FpgaPins_Fpga_CALC_counter_a2[2:0] <= FpgaPins_Fpga_CALC_counter_a1[2:0];
+            always_ff @(posedge clk) FpgaPins_Fpga_CALC_counter_a2[4:0] <= FpgaPins_Fpga_CALC_counter_a1[4:0];
 
 
 
@@ -224,7 +224,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
             // Scope: |calc
             //
             if (1) begin : P_calc
-               (* keep *) logic [2:0] \///@1$counter ;
+               (* keep *) logic [4:0] \///@1$counter ;
                assign \///@1$counter = FpgaPins_Fpga_CALC_counter_a1;
                (* keep *) logic [7:0] \///@1$digit ;
                assign \///@1$digit = FpgaPins_Fpga_CALC_digit_a1;
@@ -284,10 +284,10 @@ logic FpgaPins_Fpga_CALC_sel_a1;
                   //_@1
                      assign FpgaPins_Fpga_CALC_reset_a1 = reset;
                      assign FpgaPins_Fpga_CALC_digit_a1[7:0] = ui_in;
-                     assign FpgaPins_Fpga_CALC_counter_a1[2:0] = FpgaPins_Fpga_CALC_reset_a1 ?
+                     assign FpgaPins_Fpga_CALC_counter_a1[4:0] = FpgaPins_Fpga_CALC_reset_a1 ?
                                  3'B0:
                                  FpgaPins_Fpga_CALC_counter_a2 +1;
-                     assign FpgaPins_Fpga_CALC_sel_a1 = FpgaPins_Fpga_CALC_counter_a1[2];
+                     assign FpgaPins_Fpga_CALC_sel_a1 = FpgaPins_Fpga_CALC_counter_a1[4];
             
                      assign uo_out = (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
                               ? 8'b00111001:
