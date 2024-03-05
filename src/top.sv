@@ -5,7 +5,7 @@
    // Included URL: "https://raw.githubusercontent.com/efabless/chipcraft---mest-course/main/tlv_lib/calculator_shell_lib.tlv"
    // Include Tiny Tapeout Lab.
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlv_lib/tiny_tapeout_lib.tlv"// Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlv_lib/fpga_includes.tlv"
-//_\source top.tlv 103
+//_\source top.tlv 117
 
 //_\SV
 
@@ -141,11 +141,41 @@ logic [7:0] L0_sseg_digit_n_a0;
 // For $sseg_segment_n.
 logic [6:0] L0_sseg_segment_n_a0;
 
+// For /fpga_pins/fpga|calc$counter.
+logic [2:0] FpgaPins_Fpga_CALC_counter_a1,
+            FpgaPins_Fpga_CALC_counter_a2;
+
 // For /fpga_pins/fpga|calc$digit.
 logic [7:0] FpgaPins_Fpga_CALC_digit_a1;
 
+// For /fpga_pins/fpga|calc$reset.
+logic FpgaPins_Fpga_CALC_reset_a1;
+
 // For /fpga_pins/fpga|calc$sel.
 logic FpgaPins_Fpga_CALC_sel_a1;
+
+
+
+
+   //
+   // Scope: /fpga_pins
+   //
+
+
+      //
+      // Scope: /fpga
+      //
+
+
+         //
+         // Scope: |calc
+         //
+
+            // Staging of $counter.
+            always_ff @(posedge clk) FpgaPins_Fpga_CALC_counter_a2[2:0] <= FpgaPins_Fpga_CALC_counter_a1[2:0];
+
+
+
 
 
 
@@ -194,8 +224,12 @@ logic FpgaPins_Fpga_CALC_sel_a1;
             // Scope: |calc
             //
             if (1) begin : P_calc
+               (* keep *) logic [2:0] \///@1$counter ;
+               assign \///@1$counter = FpgaPins_Fpga_CALC_counter_a1;
                (* keep *) logic [7:0] \///@1$digit ;
                assign \///@1$digit = FpgaPins_Fpga_CALC_digit_a1;
+               (* keep *) logic  \///@1$reset ;
+               assign \///@1$reset = FpgaPins_Fpga_CALC_reset_a1;
                (* keep *) logic  \///@1$sel ;
                assign \///@1$sel = FpgaPins_Fpga_CALC_sel_a1;
             end
@@ -217,7 +251,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
 //_\TLV
    /* verilator lint_off UNOPTFLAT */
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 158 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 172 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = ~ uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = ~ uo_out[7];
@@ -225,7 +259,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
    //_\end_source
 
    // Instantiate the Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 161 as: m5+board(/top, /fpga, 7, $, , calc)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 175 as: m5+board(/top, /fpga, 7, $, , calc)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 355   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 309 as: m4+thanks(m5__l(309)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
@@ -248,54 +282,56 @@ logic FpgaPins_Fpga_CALC_sel_a1;
             
             
                   //_@1
-            
+                     assign FpgaPins_Fpga_CALC_reset_a1 = reset;
                      assign FpgaPins_Fpga_CALC_digit_a1[7:0] = ui_in;
-                     assign FpgaPins_Fpga_CALC_sel_a1 = clk;
-                     assign uo_out = 
-                                 //cycle phase all red 
-                                 (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00001111:
-                                 (FpgaPins_Fpga_CALC_digit_a1[0] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10111001:
-                                 //Cycle phase Left Turn Road B Green Light
-                                 (FpgaPins_Fpga_CALC_digit_a1[1] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10011000:
-                                 (FpgaPins_Fpga_CALC_digit_a1[1] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00000011:
-                                 //Cycle phase Road B Green light & LT yellow
-                                 (FpgaPins_Fpga_CALC_digit_a1[2] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00100010:
-                                 (FpgaPins_Fpga_CALC_digit_a1[2] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10010100:
-                                 //Cycle phase Road B Yellow Light 
-                                 (FpgaPins_Fpga_CALC_digit_a1[3] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00100011:
-                                 (FpgaPins_Fpga_CALC_digit_a1[3] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10011100:
-                                 //Cycle phase all red
-                                 (FpgaPins_Fpga_CALC_digit_a1[4] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00001111:
-                                 (FpgaPins_Fpga_CALC_digit_a1[4] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10111001:
-                                 //Cycle phase Left Turn Road A Green Light
-                                 (FpgaPins_Fpga_CALC_digit_a1[5] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b00001100:
-                                 (FpgaPins_Fpga_CALC_digit_a1[5] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10100001:
-                                 //Cycle phase Road A Green light & LT yellow
-                                 (FpgaPins_Fpga_CALC_digit_a1[6] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b01001000:
-                                 (FpgaPins_Fpga_CALC_digit_a1[6] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b11000001:
-                                 //Cycle phase Road A Yellow Light 
-                                 (FpgaPins_Fpga_CALC_digit_a1[7] & FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b01011000:
-                                 (FpgaPins_Fpga_CALC_digit_a1[7] & !FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b11000011:
+                     assign FpgaPins_Fpga_CALC_counter_a1[2:0] = FpgaPins_Fpga_CALC_reset_a1 ?
+                                 3'B0:
+                                 FpgaPins_Fpga_CALC_counter_a2 +1;
+                     assign FpgaPins_Fpga_CALC_sel_a1 = FpgaPins_Fpga_CALC_counter_a1[2];
+            
+                     assign uo_out = (FpgaPins_Fpga_CALC_digit_a1[0] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b00111001:
+                              (FpgaPins_Fpga_CALC_digit_a1[0] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b10001111:
+                                 //cycle phase Left Turn Road B Green Light
+                              (FpgaPins_Fpga_CALC_digit_a1[1] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b00011000:
+                              (FpgaPins_Fpga_CALC_digit_a1[1] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b10000011:
+                                 //cycle phase Road B Green light & LT yellow
+                              (FpgaPins_Fpga_CALC_digit_a1[2] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b00010100:
+                              (FpgaPins_Fpga_CALC_digit_a1[2] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b10100010:
+                                 //cycle phase Road B Yellow Light
+                              (FpgaPins_Fpga_CALC_digit_a1[3] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b00011100:
+                              (FpgaPins_Fpga_CALC_digit_a1[3] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b10100011:
+                                 //cycle phase all red
+                              (FpgaPins_Fpga_CALC_digit_a1[4] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b00111001:
+                              (FpgaPins_Fpga_CALC_digit_a1[4] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b10001111:
+                                 //cycle phase Left Turn Road A Green Light
+                              (FpgaPins_Fpga_CALC_digit_a1[5] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b00100001:
+                              (FpgaPins_Fpga_CALC_digit_a1[5] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b10001100:
+                                 //cycle phase Road A Green light & LT yellow
+                              (FpgaPins_Fpga_CALC_digit_a1[6] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b01000001:
+                              (FpgaPins_Fpga_CALC_digit_a1[6] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b11001000:
+                                 //cycle phase Road A Yellow Light
+                              (FpgaPins_Fpga_CALC_digit_a1[7] & FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b01000011:
+                              (FpgaPins_Fpga_CALC_digit_a1[7] & !FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b11011000:
                                  //Default all red
-                                 (FpgaPins_Fpga_CALC_sel_a1)
-                                 ? 8'b10111001:
-                                 8'b00001111;
+                              (FpgaPins_Fpga_CALC_sel_a1)
+                              ? 8'b10111001:
+                              8'b00001111;
             
             
                // Note that pipesignals assigned here can be found under /fpga_pins/fpga.
@@ -343,7 +379,7 @@ logic FpgaPins_Fpga_CALC_sel_a1;
       
    //_\end_source
    // Label the switch inputs [0..7] (1..8 on the physical switch panel) (top-to-bottom).
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 163 as: m5+tt_input_labels_viz(⌈"Value[0]", "Value[1]", "Value[2]", "Value[3]", "Op[0]", "Op[1]", "Op[2]", "="⌉)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 177 as: m5+tt_input_labels_viz(⌈"Value[0]", "Value[1]", "Value[2]", "Value[3]", "Op[0]", "Op[1]", "Op[2]", "="⌉)
       for (input_label = 0; input_label <= 7; input_label++) begin : L1_InputLabel //_/input_label
          
       end
