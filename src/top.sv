@@ -4,7 +4,7 @@
 //_\SV
    // Include Tiny Tapeout Lab.
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlv_lib/tiny_tapeout_lib.tlv"// Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlv_lib/fpga_includes.tlv"
-//_\source top.tlv 231
+//_\source top.tlv 226
 
 //_\SV
 
@@ -16,11 +16,11 @@
 module top(input logic clk, input logic reset, input logic [31:0] cyc_cnt, output logic passed, output logic failed);
    // Tiny tapeout I/O signals.
    logic [7:0] ui_in, uo_out;
-   logic [7:0]uio_in,  uio_out, uio_oe;
+   
    logic [31:0] r;  // a random value
    always @(posedge clk) r <= 0;
    assign ui_in = r[7:0];
-   assign uio_in = 8'b0;
+   
    logic ena = 1'b0;
    logic rst_n = ! reset;
 
@@ -39,7 +39,7 @@ module top(input logic clk, input logic reset, input logic [31:0] cyc_cnt, outpu
    */
 
    // Instantiate the Tiny Tapeout module.
-   tt_fpga_hdl_demo tt(.*);
+   tt_um_template tt(.*);
 
    assign passed = top.cyc_cnt > 60;
    assign failed = 1'b0;
@@ -56,14 +56,14 @@ endmodule
 // The Tiny Tapeout module
 // =======================
 
-module tt_fpga_hdl_demo (
+module tt_um_template (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 segment display
-       // The FPGA is based on TinyTapeout 3 which has no bidirectional I/Os (vs. TT6 for the ASIC).
+    /*   // The FPGA is based on TinyTapeout 3 which has no bidirectional I/Os (vs. TT6 for the ASIC).
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
     output wire [7:0] uio_out,  // IOs: Bidirectional Output path
     output wire [7:0] uio_oe,   // IOs: Bidirectional Enable path (active high: 0=input, 1=output)
-    
+    */
     input  wire       ena,      // will go high when the design is enabled
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
@@ -131,9 +131,20 @@ logic FpgaPins_Fpga_TRAFFIC_b_or_a_a1,
 logic FpgaPins_Fpga_TRAFFIC_ba_a1,
       FpgaPins_Fpga_TRAFFIC_ba_a2;
 
+// For /fpga_pins/fpga|traffic$car.
+logic FpgaPins_Fpga_TRAFFIC_car_a0,
+      FpgaPins_Fpga_TRAFFIC_car_a1;
+
+// For /fpga_pins/fpga|traffic$clear.
+logic FpgaPins_Fpga_TRAFFIC_clear_a0;
+
 // For /fpga_pins/fpga|traffic$cycle.
 logic FpgaPins_Fpga_TRAFFIC_cycle_a0,
       FpgaPins_Fpga_TRAFFIC_cycle_a1;
+
+// For /fpga_pins/fpga|traffic$need_to_clear.
+logic FpgaPins_Fpga_TRAFFIC_need_to_clear_a0,
+      FpgaPins_Fpga_TRAFFIC_need_to_clear_a1;
 
 // For /fpga_pins/fpga|traffic$output_counter.
 logic [7:0] FpgaPins_Fpga_TRAFFIC_output_counter_a0,
@@ -212,8 +223,14 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
             // Staging of $ba.
             always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_ba_a2 <= FpgaPins_Fpga_TRAFFIC_ba_a1;
 
+            // Staging of $car.
+            always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_car_a1 <= FpgaPins_Fpga_TRAFFIC_car_a0;
+
             // Staging of $cycle.
             always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_cycle_a1 <= FpgaPins_Fpga_TRAFFIC_cycle_a0;
+
+            // Staging of $need_to_clear.
+            always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_need_to_clear_a1 <= FpgaPins_Fpga_TRAFFIC_need_to_clear_a0;
 
             // Staging of $output_counter.
             always_ff @(posedge clk) FpgaPins_Fpga_TRAFFIC_output_counter_a1[7:0] <= FpgaPins_Fpga_TRAFFIC_output_counter_a0[7:0];
@@ -316,8 +333,14 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                assign \///?$cycle@1$b_or_a = FpgaPins_Fpga_TRAFFIC_b_or_a_a1;
                (* keep *) logic  \///@1$ba ;
                assign \///@1$ba = FpgaPins_Fpga_TRAFFIC_ba_a1;
+               (* keep *) logic  \///@0$car ;
+               assign \///@0$car = FpgaPins_Fpga_TRAFFIC_car_a0;
+               (* keep *) logic  \///@0$clear ;
+               assign \///@0$clear = FpgaPins_Fpga_TRAFFIC_clear_a0;
                (* keep *) logic  \///@0$cycle ;
                assign \///@0$cycle = FpgaPins_Fpga_TRAFFIC_cycle_a0;
+               (* keep *) logic  \///@0$need_to_clear ;
+               assign \///@0$need_to_clear = FpgaPins_Fpga_TRAFFIC_need_to_clear_a0;
                (* keep *) logic [7:0] \///@0$output_counter ;
                assign \///@0$output_counter = FpgaPins_Fpga_TRAFFIC_output_counter_a0;
                (* keep *) logic  \///@0$reset ;
@@ -367,7 +390,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
 //_\TLV
    /* verilator lint_off UNOPTFLAT */
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 300 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 76   // Instantiated from top.tlv, 295 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = ~ uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = ~ uo_out[7];
@@ -375,7 +398,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
    //_\end_source
 
    // Instantiate the Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 303 as: m5+board(/top, /fpga, 7, $, , traffic)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 307   // Instantiated from top.tlv, 298 as: m5+board(/top, /fpga, 7, $, , traffic)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 355   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 309 as: m4+thanks(m5__l(309)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
@@ -399,24 +422,20 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
             
                   //Clock to seconds counter
                   //_@0
-                     /*$car = *ui_in[0];
-                     $need_to_clear = ($car)
+                     assign FpgaPins_Fpga_TRAFFIC_car_a0 = ui_in[0];
+                     assign FpgaPins_Fpga_TRAFFIC_need_to_clear_a0 = (FpgaPins_Fpga_TRAFFIC_car_a0 & !(FpgaPins_Fpga_TRAFFIC_car_a1))
                                       ? 1'b1:
-                                      >>1$clear & !$car
+                                      FpgaPins_Fpga_TRAFFIC_clear_a0
                                       ? 1'b0:
-                                      >>1$need_to_clear;
-                     $clear =  (>>2$ab & (>>2$a_light == 2'b00));
-                     */
+                                      FpgaPins_Fpga_TRAFFIC_need_to_clear_a1;
+                     assign FpgaPins_Fpga_TRAFFIC_clear_a0 = (FpgaPins_Fpga_TRAFFIC_ab_a1 & (FpgaPins_Fpga_TRAFFIC_a_light_a1 == 2'b00));
+            
                      assign FpgaPins_Fpga_TRAFFIC_reset_a0 = reset;
-                     /* $second_counter[31:0] = $reset ?
-                                          32'b0:
-                                        $need_to_clear
-                                         ? >>1$second_counter +1:
-                                         >>1$second_counter;
-                     */
                      assign FpgaPins_Fpga_TRAFFIC_second_counter_a0[31:0] = FpgaPins_Fpga_TRAFFIC_reset_a0 ?
                                           32'b0:
-                                        FpgaPins_Fpga_TRAFFIC_second_counter_a1 +1;
+                                          FpgaPins_Fpga_TRAFFIC_need_to_clear_a0
+                                         ? FpgaPins_Fpga_TRAFFIC_second_counter_a1 +1:
+                                         FpgaPins_Fpga_TRAFFIC_second_counter_a1;
                      assign FpgaPins_Fpga_TRAFFIC_output_counter_a0[7:0] = FpgaPins_Fpga_TRAFFIC_reset_a0 ?
                                           8'b0:
                                           FpgaPins_Fpga_TRAFFIC_output_counter_a1 +1;
@@ -518,8 +537,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                      //$display_1
                      //$display_2
                      //ABAlBl
-                     assign uio_oe = 8'b1;
-                     assign uio_out = //RRRR
+                     assign uo_out = //RRRR
                                  (FpgaPins_Fpga_TRAFFIC_all_red_a2 & FpgaPins_Fpga_TRAFFIC_sel_a2)
                                  ? 8'b10111001:
                                  (FpgaPins_Fpga_TRAFFIC_all_red_a2 & !FpgaPins_Fpga_TRAFFIC_sel_a2)
@@ -572,8 +590,8 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                // Connect Tiny Tapeout outputs. Note that uio_ outputs are not available in the Tiny-Tapeout-3-based FPGA boards.
                //*uo_out = 8'b0;
                //*uio_oe = 8'b1;
-               assign uio_out = 8'b0;
-               assign uio_oe = 8'b0;
+               
+               
             //_\end_source
    
       // LEDs.
@@ -610,7 +628,7 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
       
    //_\end_source
    // Label the switch inputs [0..7] (1..8 on the physical switch panel) (top-to-bottom).
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 305 as: m5+tt_input_labels_viz(⌈"UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED"⌉)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 300 as: m5+tt_input_labels_viz(⌈"UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED"⌉)
       for (input_label = 0; input_label <= 7; input_label++) begin : L1_InputLabel //_/input_label
          
       end
