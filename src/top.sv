@@ -423,9 +423,9 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                   //Clock to seconds counter
                   //_@0
                      assign FpgaPins_Fpga_TRAFFIC_car_a0 = ui_in[0];
-                     assign FpgaPins_Fpga_TRAFFIC_need_to_clear_a0 = (FpgaPins_Fpga_TRAFFIC_car_a0 )
+                     assign FpgaPins_Fpga_TRAFFIC_need_to_clear_a0 = (FpgaPins_Fpga_TRAFFIC_car_a0 & !(FpgaPins_Fpga_TRAFFIC_car_a1))
                                       ? 1'b1:
-                                      FpgaPins_Fpga_TRAFFIC_clear_a0 & !FpgaPins_Fpga_TRAFFIC_car_a0 
+                                      FpgaPins_Fpga_TRAFFIC_clear_a0
                                       ? 1'b0:
                                       FpgaPins_Fpga_TRAFFIC_need_to_clear_a1;
                      assign FpgaPins_Fpga_TRAFFIC_clear_a0 = (FpgaPins_Fpga_TRAFFIC_ab_a1 & (FpgaPins_Fpga_TRAFFIC_a_light_a1 == 2'b00));
