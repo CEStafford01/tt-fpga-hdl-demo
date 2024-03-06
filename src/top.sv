@@ -494,9 +494,9 @@ logic FpgaPins_Fpga_TRAFFIC_LightLt_rs_a1;
                      //ABAlBl
                      assign uo_out = //RRRR
                                  (FpgaPins_Fpga_TRAFFIC_all_red_a2 & FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ? 8'b00111001:
+                                 ? 8'b10111001:
                                  (FpgaPins_Fpga_TRAFFIC_all_red_a2 & !FpgaPins_Fpga_TRAFFIC_sel_a2)
-                                 ?  8'b10001111:
+                                 ?  8'b00001111:
                                  //RRRG
                                  (FpgaPins_Fpga_TRAFFIC_ba_a2 & (FpgaPins_Fpga_TRAFFIC_b_lt_light_a2 == 2'b00) & FpgaPins_Fpga_TRAFFIC_sel_a2)
                                   ? 8'b10011000:
